@@ -1,0 +1,10 @@
+{
+  "gh-pages": {
+    "options": {
+      "base": "."
+    },
+    "src": [
+      "index.html"
+    ]
+  }
+}

@@ -4,7 +4,8 @@
   "description": "Angular data services for apps that don't want Angular",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "grunty grunt-gh-pages gh-pages grunt-config.json"
   },
   "keywords": [
     "angular",
@@ -17,6 +18,9 @@
     "angular": "^1.4.7"
   },
   "devDependencies": {
+    "grunt": "0.4.5",
+    "grunt-gh-pages": "0.10.0",
+    "grunty": "0.2.0",
     "virtual-dom": "^2.1.1"
   }
 }
