@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ng-services</title>
+  <style>
+  #demo {
+    margin: 10px 0px;
+    display: block;
+    white-space: pre;
+    font-family: monospace;
+  }
+  </style>
+</head>
+<body>
+  <em>Angular data services for apps that don't want Angular.</em>
+  <h3>ng-services clock with virtual-dom</h3>
+  <p>The timestamp is generates using <strong>$interval</strong> service, 
+  formatted using <strong>date</strong> 
+  filter and emitted via root scope every second. All this is hidden from the user,
+  and the application rendering is done using 
+  <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a>.</p>
+
+  <div id="clock"></div>
+  <script src="node_modules/virtual-dom/dist/virtual-dom.js"></script>
+	<script src="ng-services.js"></script>
+  <p>Application code using <em>virtual-dom</em></p>
+  <script id="demo">
+    function render(time) {
+      return virtualDom.h('h3', {className: 'clock'}, ['Clock says ', time]);
+    }
+
+    var view, rootNode;
+    function initRender() {
+      view = render();
+      rootNode = virtualDom.create(view);
+      document.querySelector('#clock').appendChild(rootNode);
+    }
+
+    function renderAll(time) {
+      var newView = render(time);
+      var patches = virtualDom.diff(view, newView);
+      rootNode = virtualDom.patch(rootNode, patches);
+      view = newView;
+    }
+
+    initRender();
+
+    // all angular code is inside the file we will load
+    ngServices({
+      src: 'examples/clock-virtual-dom/ng-clock.js',
+      module: 'Clock',
+    }).then(function (Clock) {
+      Clock.$on('tick', function (e, time) {
+        console.log('tick', time);
+        renderAll(time);
+      });
+    });
+  </script>
+</body>
+</html>
