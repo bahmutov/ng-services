@@ -49,8 +49,15 @@ ngServices({
 });
 ```
 
-## Examples
+## Example: ticking clock
 
+The angular service will emit an event every second with formatted time.
+The rendering application will use [virtual-dom](https://github.com/Matt-Esch/virtual-dom)
+library.
+
+## More examples
+
+* [ticking clock](examples/clock-virtual-dom/index.html)
 * [single injected value](examples/single-value/index.html)
 * [async service using $q](examples/async-value/index.html)
 * [multiple services at once](examples/multiple-services/index.html)
