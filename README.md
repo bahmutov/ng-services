@@ -7,6 +7,7 @@
 * [single injected value](examples/single-value/index.html)
 * [async service using $q](examples/async-value/index.html)
 * [multiple services at once](examples/multiple-services/index.html)
+* [rendering using virtual-dom](examples/use-from-virtual-dom/index.html)
 
 ### Small print
 

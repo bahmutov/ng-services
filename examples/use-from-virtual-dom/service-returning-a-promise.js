@@ -1,6 +1,8 @@
-angular.module('AsyncCalculator', [])
-  .service('AsyncAddition', function ($q) {
+angular.module('DelayedCalculator', [])
+  .service('DelayedAddition', function ($timeout) {
     return function addition(a, b) {
-      return $q.when(a + b);
+      return $timeout(function () {
+        return a + b;
+      }, 1000);
     }
   });
