@@ -21,7 +21,9 @@
   <p>The timestamp is generates using $interval and emitted via root scope every second. 
   The rendering is done using <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a>.</p>
   <div id="clock"></div>
+  <!--
   <script src="https://rawgit.com/bahmutov/console-log-div/master/console-log-div.js"></script>
+  -->
   <script src="https://rawgit.com/bahmutov/lazy-ass/master/index.js"></script>
   <script src="../../node_modules/virtual-dom/dist/virtual-dom.js"></script>
 	<script src="../../ng-services.js"></script>
@@ -51,6 +53,7 @@
       module: 'Clock',
     }).then(function (Clock) {
       Clock.$on('tick', function (e, time) {
+        console.log('tick', time);
         renderAll(time);
       });
     });

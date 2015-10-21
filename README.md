@@ -72,7 +72,13 @@ Let us load it from the main application. To see the rest of the rendering code,
 take a look at the [ticking clock](examples/clock-virtual-dom/index.html) example.
 
 ```js
-// application
+// application using virtual-dom
+function renderAll(time) {
+  var newView = render(time);
+  var patches = virtualDom.diff(view, newView);
+  rootNode = virtualDom.patch(rootNode, patches);
+  view = newView;
+}
 ngServices({
   src: 'ng-clock.js',
   module: 'Clock',
