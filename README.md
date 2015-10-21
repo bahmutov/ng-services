@@ -55,6 +55,34 @@ The angular service will emit an event every second with formatted time.
 The rendering application will use [virtual-dom](https://github.com/Matt-Esch/virtual-dom)
 library.
 
+![clock](examples/clock-virtual-dom/tick.gif)
+
+```js
+// ng-clock.js
+angular.module('Clock', [])
+  .service('Clock', function ($interval, $rootScope, $filter) {
+    var date = $filter('date');
+    $interval(function () {
+      $rootScope.$emit('tick', date(new Date(), 'mediumTime'));
+    }, 1000);
+    return $rootScope;
+  });
+```
+Let us load it from the main application. To see the rest of the rendering code,
+take a look at the [ticking clock](examples/clock-virtual-dom/index.html) example.
+
+```js
+// application
+ngServices({
+  src: 'ng-clock.js',
+  module: 'Clock',
+}).then(function (Clock) {
+  Clock.$on('tick', function (e, time) {
+    renderAll(time);
+  });
+});
+```
+
 ## More examples
 
 * [ticking clock](examples/clock-virtual-dom/index.html)
