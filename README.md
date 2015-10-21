@@ -1,6 +1,6 @@
 # ng-services
 
-> Angular data services for apps that don't want Angular
+> Angular data services for apps that don't want to be Angular
 
 Loads list of Angular services from a bundle to run inside another framework.
 For example, let us load an async addition service that we have implemented in
@@ -50,6 +50,8 @@ ngServices({
 ```
 
 ## Example: ticking clock
+
+[live demo](http://glebbahmutov.com/ng-services/).
 
 The angular service will emit an event every second with formatted time.
 The rendering application will use [virtual-dom](https://github.com/Matt-Esch/virtual-dom)
