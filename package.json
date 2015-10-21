@@ -1,0 +1,19 @@
+{
+  "name": "ng-services",
+  "version": "1.0.0",
+  "description": "Angular data services for apps that don't want Angular",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "angular",
+    "services",
+    "data"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.4.7"
+  }
+}
