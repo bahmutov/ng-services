@@ -4,7 +4,10 @@
       "base": "."
     },
     "src": [
-      "index.html"
+      "index.html",
+      "node_modules/virtual-dom/dist/virtual-dom.js",
+      "ng-services.js",
+      "examples/clock-virtual-dom/ng-clock.js"
     ]
   }
 }
