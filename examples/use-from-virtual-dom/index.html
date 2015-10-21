@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ng-services</title>
+  <!--
+  <script src="../../node_modules/angular/angular.js"></script>
+  -->
+</head>
+<body>
+  <h2>ng-services + virtual-dom example</h2>
+  <p>You can load ng-services with or without previously loaded angular library.</p>
+  <script src="https://rawgit.com/bahmutov/console-log-div/master/console-log-div.js"></script>
+  <script src="https://rawgit.com/bahmutov/lazy-ass/master/index.js"></script>
+  <script src="../../node_modules/virtual-dom/dist/virtual-dom.js"></script>
+	<script src="../../ng-services.js"></script>
+  <script>
+    la(typeof ngServices === 'function', 'missing ngServices', typeof ngServices);
+    ngServices({
+      src: 'service-returning-a-promise.js',
+      module: 'AsyncCalculator',
+      inject: 'AsyncAddition'
+    }).then(function (injected) {
+      console.log('injected services', Object.keys(injected));
+      injected.AsyncAddition(2, 3)
+        .then(function (sum) {
+          console.log('async 2 + 3 =', sum);
+          var h3 = virtualDom.h('h3', {className: 'sum'}, ['async 2 + 3 = ', sum]);
+          var h3Node = virtualDom.create(h3);
+          document.body.appendChild(h3Node);
+        });
+    });
+  </script>
+</body>
+</html>

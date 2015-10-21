@@ -15,5 +15,8 @@
   "license": "MIT",
   "dependencies": {
     "angular": "^1.4.7"
+  },
+  "devDependencies": {
+    "virtual-dom": "^2.1.1"
   }
 }
