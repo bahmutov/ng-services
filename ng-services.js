@@ -46,6 +46,11 @@
         console.log('has angular', angular.version.full);
       });
   
+  function hasListedInjections(options) {
+    return options &&
+      (options.inject || options.services);
+  }
+
   function ngService(options) {
     console.log('starting ng service', options);
     var url = options.src || 
@@ -77,19 +82,36 @@
       return injected;
     }
 
-    return loadScript(url)
+    var servicer = loadScript(url)
       .then(function (loadedUrl) {
         console.log('loaded service from', loadedUrl);
       })
-      .then(bootstrapAngular)
-      .then(returnInjected);
+      .then(bootstrapAngular);
+
+    if (hasListedInjections(options)) {
+      return servicer.then(returnInjected);
+    }
+    return servicer;
   }
 
   function ngServices(options) {
-    return initialized
-      .then(function () {
+    var startNgService = 
+      initialized.then(function () {
         return ngService(options);
       });
+
+    if (hasListedInjections(options)) {
+      return startNgService;
+    } else {
+      // fake promise where we can DI into `then(callback)`
+      return {
+        then: function (callback) {
+          return startNgService.then(function ($injector) {
+            return $injector.invoke(callback);
+          });
+        }
+      };
+    }
   }
 
   // register ngServices in the environment(s)

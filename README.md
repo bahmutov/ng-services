@@ -2,12 +2,60 @@
 
 > Angular data services for apps that don't want Angular
 
+Loads list of Angular services from a bundle to run inside another framework.
+For example, let us load an async addition service that we have implemented in
+Angular from some other application
+
+```html
+<!-- if Angular is not loaded, it will be automatically -->
+<script src="ng-services.js"></script>
+```
+
+```js
+// ng-async-addition.js
+angular.module('AsyncCalculator', [])
+  .service('AsyncAddition', function ($q) {
+    return function addition(a, b) {
+      return $q.when(a + b);
+    }
+  });
+```
+
+```js
+// your application code
+ngServices({
+  src: 'ng-async-addition.js',
+  module: 'AsyncCalculator'
+}).then(function (AsyncAddition) {
+  AsyncAddition(2, 3)
+    .then(function (sum) {
+      console.log('async 2 + 3 =', sum);
+    });
+});
+```
+
+You can list services to be injected explicitly to avoid minification problems
+
+```j
+ngServices({
+  src: 'ng-async-addition.js',
+  module: 'AsyncCalculator',
+  inject: ['AsyncAddition']
+}).then(function (injected) {
+  injected.AsyncAddition(2, 3)
+    .then(function (sum) {
+      console.log('async 2 + 3 =', sum);
+    });
+});
+```
+
 ## Examples
 
 * [single injected value](examples/single-value/index.html)
 * [async service using $q](examples/async-value/index.html)
 * [multiple services at once](examples/multiple-services/index.html)
 * [rendering using virtual-dom](examples/use-from-virtual-dom/index.html)
+* [dependency names shortcut](examples/inject-shortcut/index.html)
 
 ### Small print
 
