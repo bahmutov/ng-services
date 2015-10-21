@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ng-services</title>
+  <!--
+  <script src="../../node_modules/angular/angular.js"></script>
+  -->
+</head>
+<body>
+  <h2>ng-services multiple services example</h2>
+  <p>You can load ng-services with or without previously loaded angular library.</p>
+  <script src="https://rawgit.com/bahmutov/console-log-div/master/console-log-div.js"></script>
+  <script src="https://rawgit.com/bahmutov/lazy-ass/master/index.js"></script>
+	<script src="../../ng-services.js"></script>
+  <script>
+    console.log('first store service');
+    la(typeof ngServices === 'function', 'missing ngServices', typeof ngServices);
+    ngServices({
+      src: 'store.js',
+      module: 'Store',
+      inject: 'Store'
+    }).then(function (injected) {
+      console.log('injected services', Object.keys(injected));
+      console.log('initial store value', injected.Store.get());
+      injected.Store.set(42);
+      console.log('value after storing 42', injected.Store.get());
+    });
+  </script>
+  <script>
+    console.log('second store service');
+    la(typeof ngServices === 'function', 'missing ngServices', typeof ngServices);
+    ngServices({
+      src: 'store.js',
+      module: 'Store',
+      inject: 'Store'
+    }).then(function (injected) {
+      console.log('injected services', Object.keys(injected));
+      console.log('initial store value', injected.Store.get());
+      injected.Store.set(10);
+      console.log('value after storing 10', injected.Store.get());
+    });
+  </script>
+</body>
+</html>

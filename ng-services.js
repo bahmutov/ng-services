@@ -4,6 +4,12 @@
     return typeof angular === 'object';
   }
 
+  function addFakeElement() {
+    var node = document.createElement('div');
+    document.body.appendChild(node);
+    return node;
+  }
+
   function loadScript(url) {
     return new Promise(function (resolve) {
       var s = document.createElement('script');
@@ -54,7 +60,8 @@
 
     function bootstrapAngular() {
       console.log('bootstrapping injector for', modules);
-      var $injector = angular.bootstrap(document, modules);
+      var node = addFakeElement();
+      var $injector = angular.bootstrap(node, modules);
       return $injector;
     }
 
