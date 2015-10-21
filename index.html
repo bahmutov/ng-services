@@ -16,6 +16,14 @@
 	<script src="ng-services.js"></script>
   <script>
     la(typeof ngServices === 'function', 'missing ngServices', typeof ngServices);
+    ngServices({
+      src: 'example-service.js',
+      module: 'ExampleService',
+      inject: 'Addition'
+    }).then(function (injected) {
+      console.log('injected services', Object.keys(injected));
+      console.log('2 + 3 =', injected.Addition(2, 3));
+    });
   </script>
 </body>
 </html>

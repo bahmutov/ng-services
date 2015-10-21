@@ -42,6 +42,40 @@
   
   function ngService(options) {
     console.log('starting ng service', options);
+    var url = options.src || 
+      options.url || 
+      options.href || 
+      options.script;
+
+    var modules = options.modules || options.module;
+    if (typeof modules === 'string') {
+      modules = [modules];
+    }
+
+    function bootstrapAngular() {
+      console.log('bootstrapping injector for', modules);
+      var $injector = angular.bootstrap(document, modules);
+      return $injector;
+    }
+
+    var inject = options.inject || options.services;
+    if (typeof inject === 'string') {
+      inject = [inject];
+    }
+    function returnInjected($injector) {
+      var injected = {};
+      inject.forEach(function (name) {
+        injected[name] = $injector.get(name);
+      });
+      return injected;
+    }
+
+    return loadScript(url)
+      .then(function (loadedUrl) {
+        console.log('loaded service from', loadedUrl);
+      })
+      .then(bootstrapAngular)
+      .then(returnInjected);
   }
 
   function ngServices(options) {
