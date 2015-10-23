@@ -7,7 +7,12 @@
       "index.html",
       "node_modules/virtual-dom/dist/virtual-dom.js",
       "ng-services.js",
-      "examples/clock-virtual-dom/ng-clock.js"
+      "examples/clock-virtual-dom/ng-clock.js",
+      "examples/todo-mvc/index.html",
+      "examples/todo-mvc/node_modules/check-more-types/check-more-types.js",
+      "examples/todo-mvc/node_modules/virtual-dom/dist/virtual-dom.js",
+      "examples/todo-mvc/app.js",
+      "examples/todo-mvc/ng-todos.js"
     ]
   }
 }
