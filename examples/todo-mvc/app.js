@@ -71,7 +71,13 @@
           h('a', {href: '#/completed'}, 'Completed')
         ])
       ]),
-      h('button', {className: 'clear-completed'}, 'Clear completed')
+      h('button', {
+        className: 'clear-completed',
+        onclick: function () {
+          todos && todos.clearCompleted();
+          renderApp();
+        }
+      }, 'Clear completed')
     ]);
   }
 
