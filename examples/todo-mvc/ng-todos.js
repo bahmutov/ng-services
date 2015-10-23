@@ -10,7 +10,7 @@ angular.module('Todos', [])
     });
     return uuid;
   })
-  .factory('Todos', function (uuid) {
+  .service('Todos', function (uuid) {
     return {
       all: [],
       add: function (what) {
