@@ -1,9 +1,8 @@
 (function app() {
   'use strict';
 
-  var h = virtualDom.h;
-  // will be initialized later
-  var renderApp;
+  var h = virtualDom.h; // to save characters
+  var renderApp; // will be initialized later
 
   function renderHeader(Todos) {
     function isEnter(e) {
@@ -32,9 +31,16 @@
     var items = Todos ? Todos.all : [];
 
     function toDom(todo) {
-      return h('li', {key: todo.id}, [
+      return h('li', {className: todo.done ? 'completed' : '', key: todo.id}, [
         h('div', {className: 'view'}, [
-          h('input', {className: 'toggle', type: 'checkbox'}),
+          h('input', {
+            className: 'toggle', 
+            type: 'checkbox', 
+            onchange: function (e) {
+              Todos.mark(todo.id, e.target.checked);
+              renderApp();
+            }
+          }),
           h('label', todo.what)
         ])
       ]);
@@ -78,10 +84,8 @@
   }
 
   function initRender() {
-    var view, rootNode;
-
-    view = render();
-    rootNode = virtualDom.create(view);
+    var view = render();
+    var rootNode = virtualDom.create(view);
     document.querySelector('#app').appendChild(rootNode);
 
     function renderApp(Todos) {
@@ -99,6 +103,8 @@
     module: 'Todos',
   }).then(function (TodosExtras) {
     renderApp = initRender().bind(null, TodosExtras);
+    TodosExtras.add('learn Italian');
+    TodosExtras.add('clean my room');
     renderApp();
   });
 
