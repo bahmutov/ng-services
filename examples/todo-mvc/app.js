@@ -47,9 +47,13 @@
     ]);
   }
 
-  function renderFooter() {
+  function renderFooter(todos) {
+    var remaining = todos ? todos.countRemaining() : 0;
     return h('footer', {className: 'footer'}, [
-      h('span', {className: 'todo-count'}),
+      h('span', {className: 'todo-count'}, [
+        h('strong', {}, String(remaining)),
+        ' items left'
+      ]),
       h('ul', {className: 'filters'}, [
         h('li', [
           h('a', {className: 'selected', href: '#/'}, 'All')
@@ -69,7 +73,7 @@
     return h('section', {className: 'todoapp'}, [
       renderHeader(todos),
       renderToggleAndTodos(todos),
-      renderFooter()
+      renderFooter(todos)
     ]);
   }
 
@@ -93,9 +97,8 @@
   ngServices({
     src: 'ng-todos.js',
     module: 'Todos',
-  }).then(function (Todos) {
-    renderApp = initRender().bind(null, Todos);
-    // Todos.add('learn Italian');
+  }).then(function (TodosExtras) {
+    renderApp = initRender().bind(null, TodosExtras);
     renderApp();
   });
 

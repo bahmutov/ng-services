@@ -29,4 +29,14 @@ angular.module('Todos', [])
         });
       }
     };
+  })
+  .service('TodosExtras', function (Todos) {
+    var extras = Object.create(Todos);
+    extras.countRemaining = function countRemaining() {
+      return extras.all.reduce(function (sum, todo) {
+        return sum + (todo.done ? 0 : 1);
+      }, 0);
+    };
+
+    return extras;
   });
