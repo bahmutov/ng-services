@@ -1,0 +1,20 @@
+{
+  "name": "todo-mvc",
+  "version": "1.0.0",
+  "description": "TodoMVC done using Angular services and Virtual-dom front end",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "todomvc",
+    "angular",
+    "virtual-dom"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "todomvc-app-css": "2.0.1",
+    "todomvc-common": "1.0.2"
+  }
+}
