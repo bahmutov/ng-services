@@ -27,8 +27,36 @@
     ]);
   }
 
+  function hashFragment() {
+    return window.location.hash.split('/')[1];
+  }
+
+  function filterAll(todo) {
+    return todo;
+  }
+
+  function filterCompleted(todo) {
+    return todo.done;
+  }
+
+  function filterActive(todo) {
+    return !todo.done;
+  }
+
+  function pickTodosToShow(items) {
+    la(check.array(items), 'invalid todo items', items);
+    var filters = {
+      active: filterActive,
+      completed: filterCompleted
+    };
+    var route = hashFragment();
+    var filter = filters[route] || filterAll;
+    return items.filter(filter);
+  }
+
   function renderToggleAndTodos(Todos) {
     var items = Todos ? Todos.all : [];
+    var filtered = pickTodosToShow(items);
 
     function toDom(todo) {
       return h('li', {className: todo.done ? 'completed' : '', key: todo.id}, [
@@ -36,6 +64,7 @@
           h('input', {
             className: 'toggle', 
             type: 'checkbox', 
+            checked: todo.done,
             onchange: function (e) {
               Todos.mark(todo.id, e.target.checked);
               renderApp();
@@ -47,14 +76,16 @@
     }
 
     return h('section', {className: 'main'}, [
-      h('input', {className: 'toggle-all', type: 'checkbox'}, []),
-      h('label', {htmlFor: 'toggle-all'}, ['Mark all as complete']),
-      h('ul', {className: 'todo-list'}, items.map(toDom))
+      h('input', {className: 'toggle-all', type: 'checkbox'}),
+      h('label', {htmlFor: 'toggle-all'}, 'Mark all as complete'),
+      h('ul', {className: 'todo-list'}, filtered.map(toDom))
     ]);
   }
 
   function renderFooter(todos) {
     var remaining = todos ? todos.countRemaining() : 0;
+    var route = hashFragment();
+
     return h('footer', {className: 'footer'}, [
       h('span', {className: 'todo-count'}, [
         h('strong', {}, String(remaining)),
@@ -62,13 +93,22 @@
       ]),
       h('ul', {className: 'filters'}, [
         h('li', [
-          h('a', {className: 'selected', href: '#/'}, 'All')
+          h('a', {
+            className: route === '' ? 'selected' : '', 
+            href: '#/'
+          }, 'All')
         ]),
         h('li', [
-          h('a', {href: '#/active'}, 'Active')
+          h('a', {
+            className: route === 'active' ? 'selected' : '',
+            href: '#/active'
+          }, 'Active')
         ]),
         h('li', [
-          h('a', {href: '#/completed'}, 'Completed')
+          h('a', {
+            className: route === 'completed' ? 'selected' : '',
+            href: '#/completed'
+          }, 'Completed')
         ])
       ]),
       h('button', {
@@ -109,6 +149,9 @@
     module: 'Todos',
   }).then(function (TodosExtras) {
     renderApp = initRender().bind(null, TodosExtras);
+
+    window.addEventListener('hashchange', renderApp);
+
     TodosExtras.add('learn Italian');
     TodosExtras.add('clean my room');
     renderApp();
