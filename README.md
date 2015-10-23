@@ -93,6 +93,7 @@ ngServices({
 
 ## More examples
 
+* [TodoMVC using virtual-dom](examples/todo-mvc)
 * [ticking clock](examples/clock-virtual-dom/index.html)
 * [single injected value](examples/single-value/index.html)
 * [async service using $q](examples/async-value/index.html)
