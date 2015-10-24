@@ -12,7 +12,10 @@
       "examples/todo-mvc/node_modules/check-more-types/check-more-types.js",
       "examples/todo-mvc/node_modules/virtual-dom/dist/virtual-dom.js",
       "examples/todo-mvc/app.js",
-      "examples/todo-mvc/ng-todos.js"
+      "examples/todo-mvc/ng-todos.js",
+      "examples/todo-mvc/node_modules/todomvc-app-css/index.css",
+      "examples/todo-mvc/node_modules/todomvc-common/base.css",
+      "node_modules/check-more-types/check-more-types.js"
     ]
   }
 }
