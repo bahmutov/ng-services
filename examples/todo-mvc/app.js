@@ -101,7 +101,7 @@
       h('ul', {className: 'filters'}, [
         h('li', [
           h('a', {
-            className: route === '' ? 'selected' : '', 
+            className: !route ? 'selected' : '', 
             href: '#/'
           }, 'All')
         ]),
