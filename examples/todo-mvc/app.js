@@ -70,13 +70,27 @@
               renderApp();
             }
           }),
-          h('label', todo.what)
+          h('label', todo.what),
+          h('button', {
+            className: 'destroy',
+            onclick: function (e) {
+              Todos.remove(todo);
+              renderApp();
+            }
+          })
         ])
       ]);
     }
 
     return h('section', {className: 'main'}, [
-      h('input', {className: 'toggle-all', type: 'checkbox'}),
+      h('input', {
+        className: 'toggle-all', 
+        type: 'checkbox',
+        onclick: function (e) {
+          Todos.mark(e.target.checked);
+          renderApp();
+        }
+      }),
       h('label', {htmlFor: 'toggle-all'}, 'Mark all as complete'),
       h('ul', {className: 'todo-list'}, filtered.map(toDom))
     ]);
@@ -94,7 +108,7 @@
       h('ul', {className: 'filters'}, [
         h('li', [
           h('a', {
-            className: route === '' ? 'selected' : '', 
+            className: !route ? 'selected' : '', 
             href: '#/'
           }, 'All')
         ]),
@@ -113,6 +127,9 @@
       ]),
       h('button', {
         className: 'clear-completed',
+        style: {
+          display: todos && todos.hasCompleted() ? 'block' : 'none'
+        },
         onclick: function () {
           todos && todos.clearCompleted();
           renderApp();

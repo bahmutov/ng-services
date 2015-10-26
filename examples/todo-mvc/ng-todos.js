@@ -10,7 +10,7 @@ angular.module('Todos', [])
     });
     return uuid;
   })
-  .service('Todos', function (uuid) {
+  .factory('Todos', function (uuid) {
     return {
       all: [],
       add: function (what) {
@@ -20,11 +20,21 @@ angular.module('Todos', [])
           id: uuid()
         });
       },
+      remove: function (todo) {
+        this.all = this.all.filter(function (t) {
+          return t !== todo;
+        });
+      },
       mark: function (id, isDone) {
-        this.all.forEach(function (todo) {
-          if (todo.id === id) {
-            todo.done = isDone;
-          }
+        function specific(todo) {
+          return todo.id === id;
+        }
+        function any() { return true; }
+        var markAll = arguments.length === 1;
+        var whichTodos = markAll ? any : specific;
+        var done = markAll ? id : isDone;
+        this.all.filter(whichTodos).forEach(function (todo) {
+          todo.done = done;
         });
       }
     };
@@ -34,14 +44,20 @@ angular.module('Todos', [])
 
     // add a couple of utility methods
     extras.countRemaining = function countRemaining() {
-      return Todos.all.reduce(function (sum, todo) {
+      return this.all.reduce(function (sum, todo) {
         return sum + (todo.done ? 0 : 1);
       }, 0);
     };
 
     extras.clearCompleted = function clearCompleted() {
-      Todos.all = Todos.all.filter(function (todo) {
+      this.all = this.all.filter(function (todo) {
         return !todo.done;
+      });
+    };
+
+    extras.hasCompleted = function hasCompleted() {
+      return this.all.some(function (todo) {
+        return todo.done;
       });
     };
 
