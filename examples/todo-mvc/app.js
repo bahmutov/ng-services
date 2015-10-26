@@ -120,6 +120,9 @@
       ]),
       h('button', {
         className: 'clear-completed',
+        style: {
+          display: todos && todos.hasCompleted() ? 'block' : 'none'
+        },
         onclick: function () {
           todos && todos.clearCompleted();
           renderApp();

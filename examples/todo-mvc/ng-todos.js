@@ -50,5 +50,11 @@ angular.module('Todos', [])
       });
     };
 
+    extras.hasCompleted = function hasCompleted() {
+      return Todos.all.some(function (todo) {
+        return todo.done;
+      });
+    };
+
     return extras;
   });
