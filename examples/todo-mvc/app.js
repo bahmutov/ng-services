@@ -70,7 +70,14 @@
               renderApp();
             }
           }),
-          h('label', todo.what)
+          h('label', todo.what),
+          h('button', {
+            className: 'destroy',
+            onclick: function (e) {
+              Todos.remove(todo);
+              renderApp();
+            }
+          })
         ])
       ]);
     }
