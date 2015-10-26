@@ -26,11 +26,15 @@
     "grunt-gh-pages": "0.10.0",
     "grunty": "0.2.0",
     "lazy-ass": "0.6.0",
+    "pre-git": "0.6.2",
     "virtual-dom": "2.1.1"
   },
   "homepage": "https://github.com/bahmutov/ng-services",
   "repository": {
     "type": "git",
     "url": "git@github.com:bahmutov/ng-services.git"
-  }
+  },
+  "pre-commit": [
+    "npm version"
+  ]
 }
