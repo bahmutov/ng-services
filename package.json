@@ -28,6 +28,7 @@
     "lazy-ass": "0.6.0",
     "virtual-dom": "2.1.1"
   },
+  "homepage": "https://github.com/bahmutov/ng-services",
   "repository": {
     "type": "git",
     "url": "git@github.com:bahmutov/ng-services.git"
