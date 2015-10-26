@@ -27,5 +27,9 @@
     "grunty": "0.2.0",
     "lazy-ass": "0.6.0",
     "virtual-dom": "2.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:bahmutov/ng-services.git"
   }
 }
