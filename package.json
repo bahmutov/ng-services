@@ -1,6 +1,6 @@
 {
   "name": "ng-services",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Angular data services for apps that don't want to be Angular",
   "main": "index.js",
   "scripts": {
