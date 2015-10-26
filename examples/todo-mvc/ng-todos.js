@@ -21,10 +21,15 @@ angular.module('Todos', [])
         });
       },
       mark: function (id, isDone) {
-        this.all.forEach(function (todo) {
-          if (todo.id === id) {
-            todo.done = isDone;
-          }
+        function specific(todo) {
+          return todo.id === id;
+        }
+        function any() { return true; }
+        var markAll = arguments.length === 1;
+        var whichTodos = markAll ? any : specific;
+        var done = markAll ? id : isDone;
+        this.all.filter(whichTodos).forEach(function (todo) {
+          todo.done = done;
         });
       }
     };

@@ -76,7 +76,14 @@
     }
 
     return h('section', {className: 'main'}, [
-      h('input', {className: 'toggle-all', type: 'checkbox'}),
+      h('input', {
+        className: 'toggle-all', 
+        type: 'checkbox',
+        onclick: function (e) {
+          Todos.mark(e.target.checked);
+          renderApp();
+        }
+      }),
       h('label', {htmlFor: 'toggle-all'}, 'Mark all as complete'),
       h('ul', {className: 'todo-list'}, filtered.map(toDom))
     ]);
