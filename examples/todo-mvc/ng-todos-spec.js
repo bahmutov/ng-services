@@ -1,4 +1,15 @@
 ngDescribe({
+  name: 'local storage wrapper',
+  module: 'Todos',
+  inject: 'LocalStorage',
+  tests: function (deps) {
+    it('is an object', function () {
+      la(check.object(deps.LocalStorage));
+    });
+  }
+});
+
+ngDescribe({
   name: 'Todos list',
   module: 'Todos',
   inject: 'Todos',

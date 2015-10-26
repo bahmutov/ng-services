@@ -10,6 +10,16 @@ angular.module('Todos', [])
     });
     return uuid;
   })
+  .service('LocalStorage', function () {
+    return {
+      get: function get(name) {
+        return JSON.parse(localStorage.getItem(name))
+      },
+      set: function set(name, value) {
+        localStorage.setItem(name, JSON.stringify(value));
+      }
+    };
+  })
   .factory('Todos', function (uuid) {
     return {
       all: [],
@@ -39,7 +49,7 @@ angular.module('Todos', [])
       }
     };
   })
-  .service('TodosExtras', function (Todos) {
+  .factory('TodosExtras', function (Todos) {
     var extras = Object.create(Todos);
 
     // add a couple of utility methods
