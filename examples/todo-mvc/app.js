@@ -19,7 +19,7 @@
     return h('header', {className: 'header'}, [
       h('h1',{}, 'todos'),
       h('input', {
-        className: 'new-todo', 
+        className: 'new-todo',
         placeholder: 'What needs to be done?',
         autofocus: true,
         onkeyup: onKey
@@ -62,8 +62,8 @@
       return h('li', {className: todo.done ? 'completed' : '', key: todo.id}, [
         h('div', {className: 'view'}, [
           h('input', {
-            className: 'toggle', 
-            type: 'checkbox', 
+            className: 'toggle',
+            type: 'checkbox',
             checked: todo.done,
             onchange: function (e) {
               Todos.mark(todo.id, e.target.checked);
@@ -84,7 +84,7 @@
 
     return h('section', {className: 'main'}, [
       h('input', {
-        className: 'toggle-all', 
+        className: 'toggle-all',
         type: 'checkbox',
         onclick: function (e) {
           Todos.mark(e.target.checked);
@@ -108,7 +108,7 @@
       h('ul', {className: 'filters'}, [
         h('li', [
           h('a', {
-            className: !route ? 'selected' : '', 
+            className: !route ? 'selected' : '',
             href: '#/'
           }, 'All')
         ]),
@@ -168,9 +168,6 @@
     renderApp = initRender().bind(null, TodosExtras);
 
     window.addEventListener('hashchange', renderApp);
-
-    TodosExtras.add('learn Italian');
-    TodosExtras.add('clean my room');
     renderApp();
   });
 
