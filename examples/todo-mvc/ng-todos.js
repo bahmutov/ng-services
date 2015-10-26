@@ -10,22 +10,43 @@ angular.module('Todos', [])
     });
     return uuid;
   })
-  .factory('Todos', function (uuid) {
+  .service('LocalStorage', function () {
     return {
-      all: [],
-      add: function (what) {
+      get: function get(name) {
+        return JSON.parse(localStorage.getItem(name))
+      },
+      set: function set(name, value) {
+        localStorage.setItem(name, JSON.stringify(value));
+      }
+    };
+  })
+  .factory('Todos', function (uuid, LocalStorage) {
+    var initialTodos = LocalStorage.get('todos');
+
+    function isFirstLoad() {
+      return !initialTodos;
+    }
+
+    var Todos = {
+      all: initialTodos || [],
+      add: function add(what) {
         this.all.push({
           what: what,
           done: false,
           id: uuid()
         });
+        LocalStorage.set('todos', this.all);
       },
-      remove: function (todo) {
-        this.all = this.all.filter(function (t) {
+      filter: function filter(cb) {
+        this.all = this.all.filter(cb);
+        LocalStorage.set('todos', this.all);
+      },
+      remove: function remove(todo) {
+        this.filter(function (t) {
           return t !== todo;
         });
       },
-      mark: function (id, isDone) {
+      mark: function mark(id, isDone) {
         function specific(todo) {
           return todo.id === id;
         }
@@ -36,10 +57,18 @@ angular.module('Todos', [])
         this.all.filter(whichTodos).forEach(function (todo) {
           todo.done = done;
         });
+        LocalStorage.set('todos', this.all);
       }
     };
+
+    if (isFirstLoad()) {
+      Todos.add('learn Italian');
+      Todos.add('clean my room');
+    }
+
+    return Todos;
   })
-  .service('TodosExtras', function (Todos) {
+  .factory('TodosExtras', function (Todos) {
     var extras = Object.create(Todos);
 
     // add a couple of utility methods
@@ -50,7 +79,7 @@ angular.module('Todos', [])
     };
 
     extras.clearCompleted = function clearCompleted() {
-      this.all = this.all.filter(function (todo) {
+      this.filter(function (todo) {
         return !todo.done;
       });
     };
